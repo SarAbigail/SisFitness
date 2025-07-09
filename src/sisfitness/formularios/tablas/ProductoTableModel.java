@@ -59,7 +59,7 @@ public class ProductoTableModel extends AbstractTableModel {
             case 5:
                 return producto.getStock();  
             case 6:
-                return producto.getCategoria().getDescripcion();                  
+                return producto.getCategoria().getNombre();                  
             default:                
                 return null;
         }

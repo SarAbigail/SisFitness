@@ -119,8 +119,7 @@ public class ProductoDaoImpl implements ProductoDao {
                     + "where p.flgeli='0'\n"
                     + "and c.flgeli='0'\n"
                     + "and p.idproducto=" + ID + " ";
-            List<Object> params = new ArrayList<>();
-            ResultSet resultSet = cnx.executeQuery(query, params);
+            ResultSet resultSet = cnx.executeQuery(query);
             ProductoRowMapper mapper = new ProductoRowMapper();
             listproucto = mapper.mapRow(resultSet);
         } catch (SQLException ex) {

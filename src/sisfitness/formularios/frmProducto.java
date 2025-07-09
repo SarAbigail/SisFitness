@@ -18,23 +18,22 @@ import sisfitness.models.ProductoModel;
 
 /**
  *
- * 
+ *
  */
 public class frmProducto extends javax.swing.JDialog {
 
- 
     private String opcion;
-    private boolean resultstatus=false;    
-    private ProductoModel productoModel=new ProductoModel();
-    
-    BProducto bproducto=new BProducto();
-    
+    private boolean resultstatus = false;
+    private ProductoModel productoModel;
+
+    BProducto bproducto = new BProducto();
+
     public frmProducto(java.awt.Frame parent, boolean modal, String opcion, ProductoModel productoModel) {
         super(parent, modal);
-        this.opcion=opcion;
-        this.productoModel=productoModel;
+        this.opcion = opcion;
+        this.productoModel = productoModel;
         initComponents();
-        
+
         Init();
     }
 
@@ -51,8 +50,8 @@ public class frmProducto extends javax.swing.JDialog {
     public void setOpcion(String opcion) {
         this.opcion = opcion;
     }
-    
- /**
+
+    /**
      * @return the resultstatus
      */
     public boolean isResultstatus() {
@@ -64,8 +63,8 @@ public class frmProducto extends javax.swing.JDialog {
      */
     public void setResultstatus(boolean resultstatus) {
         this.resultstatus = resultstatus;
-    }    
-    
+    }
+
     /**
      * @return the productoModel
      */
@@ -78,7 +77,7 @@ public class frmProducto extends javax.swing.JDialog {
      */
     public void setProductoModel(ProductoModel productoModel) {
         this.productoModel = productoModel;
-    }    
+    }
 
     /**
      * Creates new form frmProducto
@@ -254,53 +253,46 @@ public class frmProducto extends javax.swing.JDialog {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        
+
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         ValidaCampos();
-        
-        CategoriaModel categoriaSelected = (CategoriaModel) cbxCategoria.getSelectedItem();        
-        ProductoModel producto=new ProductoModel();
-       
-        if (opcion.equals(OPCION_MODIFICAR))
-             producto.setId(productoModel.getId());
-        
-        producto.setNombre(txtNombre.getText());
-        producto.setDescripcion(txtDescripcion.getText());
-        producto.setSerie(txtSerie.getText());
-        producto.setPrecio(Double.parseDouble(txtPrecio.getText()));
-        producto.setStock(Double.parseDouble(txtStock.getText()));
-        producto.setCategoria(categoriaSelected);
-        
-        int nResult=bproducto.GuardarProducto(opcion, producto);
-        if (nResult>0)
-        {
-            if (opcion.equals(OPCION_NUEVO))
-            {
-                int nResultMsg =JOptionPane.showConfirmDialog(null, "Producto registrado!, ¿Desea continuar registrando productos?","Aviso",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE);
-                if (nResultMsg==JOptionPane.YES_OPTION)
-                {
+
+        CategoriaModel categoriaSelected = (CategoriaModel) cbxCategoria.getSelectedItem();
+        ProductoModel.Builder ProductoBuilder = new ProductoModel.Builder()
+                .nombre(txtNombre.getText())
+                .descripcion(txtDescripcion.getText())
+                .serie(txtSerie.getText())
+                .precio(Double.parseDouble(txtPrecio.getText()))
+                .stock(Double.parseDouble(txtStock.getText()))
+                .categoria(categoriaSelected);
+
+        if (opcion.equals(OPCION_MODIFICAR)) {
+            ProductoBuilder.id(productoModel.getId());
+        }
+
+        ProductoModel producto = ProductoBuilder.build();
+
+        int nResult = bproducto.GuardarProducto(opcion, producto);
+        if (nResult > 0) {
+            if (opcion.equals(OPCION_NUEVO)) {
+                int nResultMsg = JOptionPane.showConfirmDialog(null, "Producto registrado!, ¿Desea continuar registrando productos?", "Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                if (nResultMsg == JOptionPane.YES_OPTION) {
                     LimpiarCampos();
-                }
-                else
-                {
-                    this.resultstatus=true;
+                } else {
+                    this.resultstatus = true;
                     this.dispose();
                 }
-            }
-            else
-            {
+            } else {
                 JOptionPane.showMessageDialog(null, "El registro del producto fue actualizado!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                this.resultstatus=true;
+                this.resultstatus = true;
                 this.dispose();
             }
-        }
-        else
-        {
+        } else {
             JOptionPane.showMessageDialog(null, "No fue posible registrar el producto", "Aviso", JOptionPane.WARNING_MESSAGE);
-        }        
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
@@ -308,26 +300,25 @@ public class frmProducto extends javax.swing.JDialog {
         ConvertMayuscula(evt);
     }//GEN-LAST:event_txtNombreKeyTyped
 
-    private void ValidaCampos()
-    {
-        boolean result=false;
-        if (txtNombre.getText().isEmpty())
+    private void ValidaCampos() {
+        boolean result = false;
+        if (txtNombre.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe de ingresar el Nombre", "Aviso", JOptionPane.WARNING_MESSAGE);
-        else if (txtSerie.getText().isEmpty())
+        } else if (txtSerie.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe de ingresar la Serie", "Aviso", JOptionPane.WARNING_MESSAGE);
-        else if (txtPrecio.getText().isEmpty())
-            JOptionPane.showMessageDialog(null, "Debe de ingresar el Precio", "Aviso", JOptionPane.WARNING_MESSAGE);   
-        else if (txtStock.getText().isEmpty())
-            JOptionPane.showMessageDialog(null, "Debe de ingresar el Stock", "Aviso", JOptionPane.WARNING_MESSAGE);    
-        else if (!esDecimal(txtStock.getText()))
+        } else if (txtPrecio.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe de ingresar el Precio", "Aviso", JOptionPane.WARNING_MESSAGE);
+        } else if (txtStock.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe de ingresar el Stock", "Aviso", JOptionPane.WARNING_MESSAGE);
+        } else if (!esDecimal(txtStock.getText())) {
             JOptionPane.showMessageDialog(null, "Debe de ingresar un valor válido en el campo Stock", "Aviso", JOptionPane.WARNING_MESSAGE);
-        else if (!esDecimal(txtPrecio.getText()))
-            JOptionPane.showMessageDialog(null, "Debe de ingresar un valor válido en el campo Precio", "Aviso", JOptionPane.WARNING_MESSAGE);                       
+        } else if (!esDecimal(txtPrecio.getText())) {
+            JOptionPane.showMessageDialog(null, "Debe de ingresar un valor válido en el campo Precio", "Aviso", JOptionPane.WARNING_MESSAGE);
+        }
 
     }
-    
-    private void LimpiarCampos()
-    {
+
+    private void LimpiarCampos() {
         txtCodigo.setText("");
         txtNombre.setText("");
         txtSerie.setText("");
@@ -335,21 +326,19 @@ public class frmProducto extends javax.swing.JDialog {
         txtPrecio.setText("");
         txtStock.setText("");
     }
-    
-    private void Init()
-    {
+
+    private void Init() {
         setLocationRelativeTo(null);
         //
         txtCodigo.setEditable(false);
 
         //Carga Combo
-        BCategoria bcategoria=new BCategoria();
-        DefaultComboBoxModel<CategoriaModel> comboCategoria=new DefaultComboBoxModel<>();
+        BCategoria bcategoria = new BCategoria();
+        DefaultComboBoxModel<CategoriaModel> comboCategoria = new DefaultComboBoxModel<>();
         bcategoria.ListaCategoria().forEach(comboCategoria::addElement);
         cbxCategoria.setModel(comboCategoria);
-        
-        if (opcion.equals(OPCION_MODIFICAR))
-        {
+
+        if (opcion.equals(OPCION_MODIFICAR)) {
             //Cargamos la Información
             txtCodigo.setText(String.valueOf(productoModel.getId()));
             txtNombre.setText(productoModel.getNombre());
@@ -357,6 +346,14 @@ public class frmProducto extends javax.swing.JDialog {
             txtSerie.setText(productoModel.getSerie());
             txtPrecio.setText(String.valueOf(productoModel.getPrecio()));
             txtStock.setText(String.valueOf(productoModel.getStock()));
+            // Selecciona la categoría del producto en el combo
+            for (int i = 0; i < cbxCategoria.getItemCount(); i++) {
+                CategoriaModel cat = cbxCategoria.getItemAt(i);
+                if (cat.getId() == productoModel.getCategoria().getId()) {
+                    cbxCategoria.setSelectedIndex(i);
+                    break;
+                }
+            }
         }
 
     }

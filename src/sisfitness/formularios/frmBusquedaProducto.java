@@ -12,13 +12,14 @@ import sisfitness.models.ProductoModel;
 
 /**
  *
- * 
+ *
  */
 public class frmBusquedaProducto extends javax.swing.JDialog {
 
     ProductoBusquedaTable productoBusquedaTable;
-    BProducto bProducto=new BProducto();
-    private ProductoModel productoSel=new ProductoModel();
+    BProducto bProducto = new BProducto();
+    private ProductoModel productoSel;
+
     /**
      * @return the productoSel
      */
@@ -36,33 +37,29 @@ public class frmBusquedaProducto extends javax.swing.JDialog {
     /**
      * Creates new form frmBusquedaProducto
      */
-   
-    
     public frmBusquedaProducto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         Init();
     }
-    
-    private void Init()
-    {
+
+    private void Init() {
         setLocationRelativeTo(null);
         //
         ListarProductos("");
-    }        
+    }
 
-    private void ListarProductos(String sFilter)
-    {
+    private void ListarProductos(String sFilter) {
 
-        productoBusquedaTable=new ProductoBusquedaTable(bProducto.BuscarByDescripcion(sFilter));
+        productoBusquedaTable = new ProductoBusquedaTable(bProducto.BuscarByDescripcion(sFilter));
         gridProducto.setModel(productoBusquedaTable);
         gridProducto.getColumnModel().getColumn(0).setPreferredWidth(27);
         gridProducto.getColumnModel().getColumn(1).setPreferredWidth(300);
         gridProducto.getColumnModel().getColumn(2).setPreferredWidth(400);
-        gridProducto.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);        
-    }      
-    
+        gridProducto.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -212,7 +209,7 @@ public class frmBusquedaProducto extends javax.swing.JDialog {
         int selectedRow = gridProducto.getSelectedRow();
         if (selectedRow != -1) {
             int id = (int) gridProducto.getValueAt(selectedRow, 0);
-            productoSel=productoBusquedaTable.ObtenerByID(id);
+            productoSel = productoBusquedaTable.ObtenerByID(id);
             this.dispose();
         }
     }//GEN-LAST:event_btnSeleccionarActionPerformed

@@ -6,34 +6,35 @@
 package sisfitness.models;
 
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
- * 
+ *
  */
 public class ProductoRowMapper {
-    public List<ProductoModel> mapRow(ResultSet resultSet) throws SQLException
-    {
-        List<ProductoModel> listproucto=new ArrayList<>();
+
+    public List<ProductoModel> mapRow(ResultSet resultSet) throws SQLException {
+        List<ProductoModel> listaProductos = new ArrayList<>();
+
         while (resultSet.next()) {
-            ProductoModel prdmodel=new ProductoModel();
-            
-            prdmodel.setId((Integer)resultSet.getInt("idproducto"));
-            prdmodel.setNombre(resultSet.getString("nombre"));
-            prdmodel.setDescripcion(resultSet.getString("descripcion"));
-            prdmodel.setSerie(resultSet.getString("serie"));
-            prdmodel.setPrecio((Double)resultSet.getDouble("precio"));
-            prdmodel.setStock((Double)resultSet.getDouble("stock"));
-            prdmodel.setCategoria(new CategoriaModel((Integer)resultSet.getInt("idcategoria"), resultSet.getString("categoria")));
-            // Crear un objeto Usuario y agregarlo a la lista
-            listproucto.add(prdmodel);
+            ProductoModel producto = new ProductoModel.Builder()
+                    .id(resultSet.getInt("idproducto"))
+                    .nombre(resultSet.getString("nombre"))
+                    .descripcion(resultSet.getString("descripcion"))
+                    .serie(resultSet.getString("serie"))
+                    .precio(resultSet.getDouble("precio"))
+                    .stock(resultSet.getDouble("stock"))
+                    .categoria(new CategoriaModel(
+                            resultSet.getInt("idcategoria"),
+                            resultSet.getString("categoria")))
+                    .build();
+
+            listaProductos.add(producto);
         }
-         
-        return listproucto;
+
+        return listaProductos;
     }
 }

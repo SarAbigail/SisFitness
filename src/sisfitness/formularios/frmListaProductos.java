@@ -16,18 +16,18 @@ import sisfitness.models.ProductoModel;
 
 /**
  *
- * 
+ *
  */
 public class frmListaProductos extends javax.swing.JFrame {
 
     /**
      * Creates new form frmListaProductos
      */
-        BProducto bproducto=new BProducto();
-            
+    BProducto bproducto = new BProducto();
+
     public frmListaProductos() {
         initComponents();
-        
+
         Init();
     }
 
@@ -149,6 +149,11 @@ public class frmListaProductos extends javax.swing.JFrame {
         btnSalir.setFocusable(false);
         btnSalir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnSalir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btnSalir);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -172,26 +177,23 @@ public class frmListaProductos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Init()
-    {
+    private void Init() {
         setLocationRelativeTo(null);
         //
         ListarProductos();
     }
-    
-    private void ListarProductos()
-    {
 
-        ProductoTableModel prdtable=new ProductoTableModel(bproducto.ListaProducto());
+    private void ListarProductos() {
+
+        ProductoTableModel prdtable = new ProductoTableModel(bproducto.ListaProducto());
         gridProducto.setModel(prdtable);
     }
-    
+
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
 
-        frmProducto frmprod=new frmProducto(this, rootPaneCheckingEnabled,OPCION_NUEVO,null);
+        frmProducto frmprod = new frmProducto(this, rootPaneCheckingEnabled, OPCION_NUEVO, null);
         frmprod.setVisible(true);
-        if (frmprod.isResultstatus())
-        {
+        if (frmprod.isResultstatus()) {
             ListarProductos();
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
@@ -201,12 +203,11 @@ public class frmListaProductos extends javax.swing.JFrame {
         int selectedRow = gridProducto.getSelectedRow();
         if (selectedRow != -1) {
             int id = (int) gridProducto.getValueAt(selectedRow, 0);
-            ProductoModel producto=new ProductoModel();
-            producto=bproducto.BuscarByID(id);
-            frmProducto frmprod=new frmProducto(this, rootPaneCheckingEnabled,OPCION_MODIFICAR,producto);
+            ProductoModel producto;
+            producto = bproducto.BuscarByID(id);
+            frmProducto frmprod = new frmProducto(this, rootPaneCheckingEnabled, OPCION_MODIFICAR, producto);
             frmprod.setVisible(true);
-            if (frmprod.isResultstatus())
-            {
+            if (frmprod.isResultstatus()) {
                 ListarProductos();
             }
         }
@@ -216,20 +217,17 @@ public class frmListaProductos extends javax.swing.JFrame {
         // TODO add your handling code here:
         int selectedRow = gridProducto.getSelectedRow();
         if (selectedRow != -1) {
-         
-                int nResultMsg =JOptionPane.showConfirmDialog(null, "¿Desea eliminar el registro seleccionado?","Aviso",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE);
-                if (nResultMsg==JOptionPane.YES_OPTION)
-                {
-                             int id = (int) gridProducto.getValueAt(selectedRow, 0);
-                            ProductoModel producto=new ProductoModel();
-                            producto.setId(id);
-                            int nResult=bproducto.GuardarProducto(OPCION_ELIMINAR, producto);
-                            if (nResult>0)
-                            {
-                                ListarProductos();
-                            }
-                }          
-        }        
+
+            int nResultMsg = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el registro seleccionado?", "Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            if (nResultMsg == JOptionPane.YES_OPTION) {
+                int id = (int) gridProducto.getValueAt(selectedRow, 0);
+                ProductoModel producto = new ProductoModel.Builder().id(id).build();
+                int nResult = bproducto.GuardarProducto(OPCION_ELIMINAR, producto);
+                if (nResult > 0) {
+                    ListarProductos();
+                }
+            }
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -237,6 +235,10 @@ public class frmListaProductos extends javax.swing.JFrame {
         ListarProductos();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
