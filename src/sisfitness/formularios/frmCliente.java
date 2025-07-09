@@ -13,17 +13,17 @@ import sisfitness.models.ClienteModel;
 
 /**
  *
- * 
+ *
  */
 public class frmCliente extends javax.swing.JDialog {
 
-   private BCliente bCliente=new BCliente();
+    private BCliente bCliente = new BCliente();
 
     private String opcion;
-    private boolean resultstatus=false;    
-    private ClienteModel  clienteInput=new ClienteModel();
-    
-  /**
+    private boolean resultstatus = false;
+    private ClienteModel clienteInput = new ClienteModel();
+
+    /**
      * @return the opcion
      */
     public String getOpcion() {
@@ -63,17 +63,17 @@ public class frmCliente extends javax.swing.JDialog {
      */
     public void setClienteInput(ClienteModel clienteInput) {
         this.clienteInput = clienteInput;
-    }    
-    
+    }
+
     /**
      * Creates new form frmCliente
      */
     public frmCliente(java.awt.Frame parent, boolean modal, String opcion, ClienteModel clientemodel) {
         super(parent, modal);
-        this.opcion=opcion;
-        this.clienteInput=clientemodel;        
+        this.opcion = opcion;
+        this.clienteInput = clientemodel;
         initComponents();
-        
+
         Init();
     }
 
@@ -159,11 +159,11 @@ public class frmCliente extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jLabel2.setText("DNI");
+        jLabel2.setText("DNI*");
 
-        jLabel3.setText("Apellidos");
+        jLabel3.setText("Apellidos*");
 
-        jLabel4.setText("Nombres");
+        jLabel4.setText("Nombres*");
 
         jLabel5.setText("Dirección");
 
@@ -268,11 +268,12 @@ public class frmCliente extends javax.swing.JDialog {
 
         ValidaCampos();
 
-        ClienteModel cliente=new ClienteModel();
+        ClienteModel cliente = new ClienteModel();
 
-        if (getOpcion().equals(OPCION_MODIFICAR))
+        if (getOpcion().equals(OPCION_MODIFICAR)) {
             cliente.setIdcliente(clienteInput.getIdcliente());
-        
+        }
+
         cliente.setApellidos(txtApellidos.getText());
         cliente.setNombres(txtNombres.getText());
         cliente.setDireccion(txtDireccion.getText());
@@ -280,32 +281,22 @@ public class frmCliente extends javax.swing.JDialog {
         cliente.setCeluar(txtCelular.getText());
         cliente.setCorreo(txtCorreo.getText());
 
-
-        int nResult=bCliente.GuardarCliente(getOpcion(), cliente);
-        if (nResult>0)
-        {
-            if (getOpcion().equals(OPCION_NUEVO))
-            {
-                int nResultMsg =JOptionPane.showConfirmDialog(null, "Cliente registrado!, ¿Desea continuar registrando clientes?","Aviso",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE);
-                if (nResultMsg==JOptionPane.YES_OPTION)
-                {
+        int nResult = bCliente.GuardarCliente(getOpcion(), cliente);
+        if (nResult > 0) {
+            if (getOpcion().equals(OPCION_NUEVO)) {
+                int nResultMsg = JOptionPane.showConfirmDialog(null, "Cliente registrado!, ¿Desea continuar registrando clientes?", "Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                if (nResultMsg == JOptionPane.YES_OPTION) {
                     LimpiarCampos();
-                }
-                else
-                {
+                } else {
                     this.setResultstatus(true);
                     this.dispose();
                 }
-            }
-            else
-            {
+            } else {
                 JOptionPane.showMessageDialog(null, "El cliente fue actualizado!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 this.setResultstatus(true);
                 this.dispose();
             }
-        }
-        else
-        {
+        } else {
             JOptionPane.showMessageDialog(null, "No fue posible registrar al cliente", "Aviso", JOptionPane.WARNING_MESSAGE);
         }
 
@@ -316,16 +307,13 @@ public class frmCliente extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    
-private void Init()
-    {
+    private void Init() {
         setLocationRelativeTo(null);
         setTitle("Cliente");
         //
         txtCodigo.setEditable(false);
-        
-        if (getOpcion().equals(OPCION_MODIFICAR))
-        {
+
+        if (getOpcion().equals(OPCION_MODIFICAR)) {
             //Cargamos la Información
             txtCodigo.setText(String.valueOf(clienteInput.getIdcliente()));
             txtDni.setText(clienteInput.getDni());
@@ -335,24 +323,23 @@ private void Init()
             txtDistrito.setText(clienteInput.getDistrito());
             txtCorreo.setText(clienteInput.getCorreo());
             txtCelular.setText(clienteInput.getCeluar());
-        }        
-    }    
-    
-    private void ValidaCampos()
-    {
-        boolean result=false;
-        if (txtDni.getText().isEmpty())
-            JOptionPane.showMessageDialog(null, "Debe de ingresar el DNI", "Aviso", JOptionPane.WARNING_MESSAGE);        
-        if (txtApellidos.getText().isEmpty())
+        }
+    }
+
+    private void ValidaCampos() {
+        boolean result = false;
+        if (txtDni.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe de ingresar el DNI", "Aviso", JOptionPane.WARNING_MESSAGE);
+        }
+        if (txtApellidos.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe de ingresar los Apellidos", "Aviso", JOptionPane.WARNING_MESSAGE);
-        else if (txtNombres.getText().isEmpty())
+        } else if (txtNombres.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe de ingresar el Nombre", "Aviso", JOptionPane.WARNING_MESSAGE);
-                         
+        }
 
     }
-    
-    private void LimpiarCampos()
-    {
+
+    private void LimpiarCampos() {
         txtCodigo.setText("");
         txtDni.setText("");
         txtApellidos.setText("");
@@ -361,8 +348,8 @@ private void Init()
         txtDistrito.setText("");
         txtCorreo.setText("");
         txtCelular.setText("");
-    }    
- 
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

@@ -5,10 +5,9 @@
  */
 package sisfitness.models;
 
-
 /**
  *
- * 
+ *
  */
 public class UsuarioModel {
 
@@ -17,7 +16,7 @@ public class UsuarioModel {
     private String contrasena;
     private int idempleado;
     private String perfil;
-    
+
     /**
      * @return the idusuario
      */
