@@ -9,6 +9,7 @@ import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import sisfitness.business.BOrdenVenta;
+import sisfitness.common.SesionUsuario;
 import sisfitness.formularios.tablas.OrdenVentaTableModel;
 import sisfitness.models.ClienteModel;
 import sisfitness.models.OrdenVentaModel;
@@ -20,7 +21,7 @@ import sisfitness.models.OrdenVentaModel;
 public class frmReporteOrden extends javax.swing.JFrame {
 
     ClienteModel clienteSel=new ClienteModel();
-    BOrdenVenta bOrdenVenta=new BOrdenVenta();
+    BOrdenVenta bOrdenVenta=new BOrdenVenta(SesionUsuario.getInstancia().getUsuario().getPerfil());
     List<OrdenVentaModel> listaorden=new ArrayList<>();
     OrdenVentaTableModel ordenTable;
     

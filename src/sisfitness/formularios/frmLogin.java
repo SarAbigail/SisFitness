@@ -8,6 +8,7 @@ package sisfitness.formularios;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import sisfitness.business.BUsuario;
+import sisfitness.common.SesionUsuario;
 import sisfitness.models.UsuarioModel;
 
 /**
@@ -133,6 +134,9 @@ public class frmLogin extends javax.swing.JFrame {
         UsuarioModel login= bUsuario.ValidaCredenciales(txtUsuario.getText(), pwd);
         if (login!=null)
         {
+            //Almacenamos la sesión del usuario
+            SesionUsuario.getInstancia().setUsuario(login);
+            
             this.dispose();
             frmMenuPrincipal frm=new frmMenuPrincipal(login);
             frm.setExtendedState( frm.getExtendedState()|JFrame.MAXIMIZED_BOTH );

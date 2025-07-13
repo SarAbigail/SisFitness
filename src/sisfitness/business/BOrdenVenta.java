@@ -6,6 +6,8 @@
 package sisfitness.business;
 
 import java.util.List;
+import sisfitness.common.exception.AccesoDenegadoException;
+import sisfitness.dao.OrdenVentaDao;
 import sisfitness.dao.OrdenVentaDaoImpl;
 import sisfitness.models.OrdenVentaModel;
 
@@ -13,21 +15,31 @@ import sisfitness.models.OrdenVentaModel;
  *
  * 
  */
-public class BOrdenVenta {
+public class BOrdenVenta implements OrdenVentaDao {
     OrdenVentaDaoImpl ordenVentaDaoImpl;
+    private String perfilUsuario;
 
-    public BOrdenVenta()
+    public BOrdenVenta(String perfilUsuario)
     {
         ordenVentaDaoImpl=new OrdenVentaDaoImpl();
+        this.perfilUsuario = perfilUsuario;
     }
     
-    public int GuardarVenta(OrdenVentaModel ordenVentaModel)
-    {
-        return ordenVentaDaoImpl.setGuardar(ordenVentaModel);
+    private boolean validaPermisoVenta() {
+        return "vendedor".equalsIgnoreCase(perfilUsuario);
+    }   
+ 
+    @Override
+    public int setGuardar(OrdenVentaModel ordenVentaModel) {
+         if (validaPermisoVenta()) {
+            return ordenVentaDaoImpl.setGuardar(ordenVentaModel);
+        } else {
+            throw new AccesoDenegadoException("No cuenta con permisos para guardar ventas.");
+        }
     }
-    
-    public List<OrdenVentaModel> BuscarByClienteAndFechaVenta(int idcliente, String sFechaVenta)
-    {
-        return ordenVentaDaoImpl.BuscarByClienteAndFechaVenta(idcliente, sFechaVenta);
+
+    @Override
+    public List<OrdenVentaModel> BuscarByClienteAndFechaVenta(int idcliente, String sFechaVenta) {
+       return ordenVentaDaoImpl.BuscarByClienteAndFechaVenta(idcliente, sFechaVenta);
     }
 }

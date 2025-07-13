@@ -12,7 +12,9 @@ import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import sisfitness.business.BOrdenVenta;
+import sisfitness.common.exception.AccesoDenegadoException;
 import static sisfitness.common.FuncionesGenericas.esDecimal;
+import sisfitness.common.SesionUsuario;
 import sisfitness.formularios.tablas.OrdenVentaDetalleTableModel;
 import sisfitness.models.ClienteModel;
 import sisfitness.models.OrdenVentaDetalleModel;
@@ -28,7 +30,7 @@ public class frmRegistraOrden extends javax.swing.JFrame {
     List<OrdenVentaDetalleModel> ListaDetalle=new ArrayList<>();
     OrdenVentaDetalleTableModel tablaDetalle;
     ClienteModel clienteSel=new ClienteModel();
-    BOrdenVenta bOrdenVenta=new BOrdenVenta();
+    BOrdenVenta bOrdenVenta=new BOrdenVenta(SesionUsuario.getInstancia().getUsuario().getPerfil());
     /**
      * Creates new form frmRegistraOrden
      */
@@ -275,27 +277,37 @@ public class frmRegistraOrden extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        // TODO add your handling code here:
-        ValidaCampos();
-        //Añadimos informacion de la cabecera
-        OrdenVentaModel ordenVentaModel=new OrdenVentaModel();
-        ordenVentaModel.setFechaventa(txtFecha.getText());
-        ordenVentaModel.setCliente(clienteSel);
-        ordenVentaModel.setTotalventa(tablaDetalle.getTotal());
-        ordenVentaModel.setOrdenVentaDetalles(tablaDetalle.Lista());
-       int nResult= bOrdenVenta.GuardarVenta(ordenVentaModel);
-       if (nResult>0)
-       {
-           int nResultMsg =JOptionPane.showConfirmDialog(null, "Se ha generado el Registro de Venta!, ¿Desea continuar registrando?","Aviso",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE);
-            if (nResultMsg==JOptionPane.YES_OPTION)
-            {
-                LimpiarCampos();
-            }
-            else
-            {
-                this.dispose();
-            }           
-       }
+       
+        try {
+            // TODO add your handling code here:
+            ValidaCampos();
+            //Añadimos informacion de la cabecera
+            OrdenVentaModel ordenVentaModel=new OrdenVentaModel();
+            ordenVentaModel.setFechaventa(txtFecha.getText());
+            ordenVentaModel.setCliente(clienteSel);
+            ordenVentaModel.setTotalventa(tablaDetalle.getTotal());
+            ordenVentaModel.setOrdenVentaDetalles(tablaDetalle.Lista());
+            
+           int nResult= bOrdenVenta.setGuardar(ordenVentaModel);
+           if (nResult>0)
+           {
+               int nResultMsg =JOptionPane.showConfirmDialog(null, "Se ha generado el Registro de Venta!, ¿Desea continuar registrando?","Aviso",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE);
+                if (nResultMsg==JOptionPane.YES_OPTION)
+                {
+                    LimpiarCampos();
+                }
+                else
+                {
+                    this.dispose();
+                }           
+           }  
+        }catch (AccesoDenegadoException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Restriccion", JOptionPane.WARNING_MESSAGE);
+        } 
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+ 
 
         /*
         ValidaCampos();
