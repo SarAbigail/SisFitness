@@ -15,8 +15,8 @@ import static sisfitness.common.Parametros.OPCION_ELIMINAR;
 import static sisfitness.common.Parametros.OPCION_MODIFICAR;
 import static sisfitness.common.Parametros.OPCION_NUEVO;
 import sisfitness.da.ConexSql;
-import sisfitness.models.ProductoModel;
-import sisfitness.models.ProductoRowMapper;
+import sisfitness.builder.ProductoModel;
+import sisfitness.builder.ProductoRowMapper;
 
 /**
  *

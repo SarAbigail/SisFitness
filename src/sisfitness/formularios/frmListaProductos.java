@@ -12,7 +12,7 @@ import static sisfitness.common.Parametros.OPCION_ELIMINAR;
 import static sisfitness.common.Parametros.OPCION_MODIFICAR;
 import static sisfitness.common.Parametros.OPCION_NUEVO;
 import sisfitness.formularios.tablas.ProductoTableModel;
-import sisfitness.models.ProductoModel;
+import sisfitness.builder.ProductoModel;
 
 /**
  *
@@ -221,7 +221,7 @@ public class frmListaProductos extends javax.swing.JFrame {
             int nResultMsg = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el registro seleccionado?", "Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
             if (nResultMsg == JOptionPane.YES_OPTION) {
                 int id = (int) gridProducto.getValueAt(selectedRow, 0);
-                ProductoModel producto = new ProductoModel.Builder().id(id).build();
+                ProductoModel producto = new ProductoModel.ProductoBuilder().id(id).build();
                 int nResult = bproducto.GuardarProducto(OPCION_ELIMINAR, producto);
                 if (nResult > 0) {
                     ListarProductos();

@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sisfitness.business;
+package sisfitness.proxy;
 
 import java.util.List;
 import sisfitness.common.exception.AccesoDenegadoException;
-import sisfitness.dao.OrdenVentaDao;
-import sisfitness.dao.OrdenVentaDaoImpl;
 import sisfitness.models.OrdenVentaModel;
 
 /**

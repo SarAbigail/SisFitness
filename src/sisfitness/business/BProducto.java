@@ -7,7 +7,7 @@ package sisfitness.business;
 
 import java.util.List;
 import sisfitness.dao.ProductoDaoImpl;
-import sisfitness.models.ProductoModel;
+import sisfitness.builder.ProductoModel;
 
 /**
  *

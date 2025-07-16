@@ -3,10 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sisfitness.models;
+package sisfitness.builder;
+
+//Se importa el modelo de categoria
+import sisfitness.models.CategoriaModel;
 
 public class ProductoModel {
 
+    //Atributos del producto
     private final int id;
     private final String nombre;
     private final String descripcion;
@@ -15,7 +19,8 @@ public class ProductoModel {
     private final double precio;
     private final CategoriaModel categoria;
 
-    private ProductoModel(Builder builder) {
+    //Constructor, solo se instancia a traves del ProductoBuilder
+    private ProductoModel(ProductoBuilder builder) {
         this.id = builder.id;
         this.nombre = builder.nombre;
         this.descripcion = builder.descripcion;
@@ -25,7 +30,7 @@ public class ProductoModel {
         this.categoria = builder.categoria;
     }
 
-    // Getters
+    // Getters para acceder a los atributos
     public int getId() {
         return id;
     }
@@ -54,9 +59,10 @@ public class ProductoModel {
         return categoria;
     }
 
-    // Builder interno
-    public static class Builder {
+    // Clase interna que pemite construir objetos ProductoModel
+    public static class ProductoBuilder {
 
+        //Atributos del builder
         private int id;
         private String nombre;
         private String descripcion;
@@ -65,41 +71,43 @@ public class ProductoModel {
         private double precio;
         private CategoriaModel categoria;
 
-        public Builder id(int id) {
+        //Métodos para establecer valores
+        public ProductoBuilder id(int id) {
             this.id = id;
             return this;
         }
 
-        public Builder nombre(String nombre) {
+        public ProductoBuilder nombre(String nombre) {
             this.nombre = nombre;
             return this;
         }
 
-        public Builder descripcion(String descripcion) {
+        public ProductoBuilder descripcion(String descripcion) {
             this.descripcion = descripcion;
             return this;
         }
 
-        public Builder serie(String serie) {
+        public ProductoBuilder serie(String serie) {
             this.serie = serie;
             return this;
         }
 
-        public Builder stock(double stock) {
+        public ProductoBuilder stock(double stock) {
             this.stock = stock;
             return this;
         }
 
-        public Builder precio(double precio) {
+        public ProductoBuilder precio(double precio) {
             this.precio = precio;
             return this;
         }
 
-        public Builder categoria(CategoriaModel categoria) {
+        public ProductoBuilder categoria(CategoriaModel categoria) {
             this.categoria = categoria;
             return this;
         }
 
+        //Método que construye y devuelve una instancia de ProductoModel
         public ProductoModel build() {
             return new ProductoModel(this);
         }

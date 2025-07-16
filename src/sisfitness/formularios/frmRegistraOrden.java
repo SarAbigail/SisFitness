@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import sisfitness.business.BOrdenVenta;
+import sisfitness.proxy.BOrdenVenta;
 import sisfitness.common.exception.AccesoDenegadoException;
 import static sisfitness.common.FuncionesGenericas.esDecimal;
 import sisfitness.common.SesionUsuario;
@@ -19,7 +19,7 @@ import sisfitness.formularios.tablas.OrdenVentaDetalleTableModel;
 import sisfitness.models.ClienteModel;
 import sisfitness.models.OrdenVentaDetalleModel;
 import sisfitness.models.OrdenVentaModel;
-import sisfitness.models.ProductoModel;
+import sisfitness.builder.ProductoModel;
 
 /**
  *

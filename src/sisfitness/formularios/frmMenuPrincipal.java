@@ -42,7 +42,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     private void Init()
     {
         setLocationRelativeTo(null);
-        setTitle("Sismtea Fitness...");
+        setTitle("Sistema Fitness...");
         if (usuarioLogeado!=null)
             infoUsuario.setText(usuarioLogeado.getLogin());
     }

@@ -8,7 +8,7 @@ package sisfitness.formularios.tablas;
 import java.util.List;
 import java.util.Optional;
 import javax.swing.table.AbstractTableModel;
-import sisfitness.models.ProductoModel;
+import sisfitness.builder.ProductoModel;
 
 /**
  *

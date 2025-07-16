@@ -5,6 +5,8 @@
  */
 package sisfitness.models;
 
+import sisfitness.builder.ProductoModel;
+
 /**
  *
  * 

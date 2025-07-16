@@ -8,7 +8,7 @@ package sisfitness.formularios;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
-import sisfitness.business.BOrdenVenta;
+import sisfitness.proxy.BOrdenVenta;
 import sisfitness.common.SesionUsuario;
 import sisfitness.formularios.tablas.OrdenVentaTableModel;
 import sisfitness.models.ClienteModel;

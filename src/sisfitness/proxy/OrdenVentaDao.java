@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sisfitness.dao;
+package sisfitness.proxy;
 
 import java.util.List;
 import sisfitness.models.OrdenVentaModel;

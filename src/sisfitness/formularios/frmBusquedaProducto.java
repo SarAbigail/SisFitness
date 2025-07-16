@@ -8,7 +8,7 @@ package sisfitness.formularios;
 import javax.swing.JTable;
 import sisfitness.business.BProducto;
 import sisfitness.formularios.tablas.ProductoBusquedaTable;
-import sisfitness.models.ProductoModel;
+import sisfitness.builder.ProductoModel;
 
 /**
  *

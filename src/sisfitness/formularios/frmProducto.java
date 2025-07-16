@@ -14,7 +14,7 @@ import static sisfitness.common.FuncionesGenericas.esDecimal;
 import static sisfitness.common.Parametros.OPCION_MODIFICAR;
 import static sisfitness.common.Parametros.OPCION_NUEVO;
 import sisfitness.models.CategoriaModel;
-import sisfitness.models.ProductoModel;
+import sisfitness.builder.ProductoModel;
 import sisfitness.factories.ProductoFactory;
 import sisfitness.factories.ProductoFactoryCreator;
 
@@ -263,7 +263,7 @@ public class frmProducto extends javax.swing.JDialog {
         ValidaCampos();
 
         CategoriaModel categoriaSelected = (CategoriaModel) cbxCategoria.getSelectedItem();
-        ProductoModel.Builder ProductoBuilder = new ProductoModel.Builder()
+        ProductoModel.ProductoBuilder ProductoBuilder = new ProductoModel.ProductoBuilder()
                 .nombre(txtNombre.getText())
                 .descripcion(txtDescripcion.getText())
                 .serie(txtSerie.getText())

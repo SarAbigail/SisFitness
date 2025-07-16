@@ -2,14 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package sisfitness.factories;
-
+package sisfitness.iterator;
 /**
  *
- * @author BRYAN
+ * @author ITALO
  */
-import sisfitness.builder.ProductoModel;
 
-public interface ProductoFactory {
-    ProductoModel crearProducto();
+
+public interface CategoriaAggregate {
+    CategoriaIterator createIterator();
 }

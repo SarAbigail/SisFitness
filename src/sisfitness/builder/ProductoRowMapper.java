@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sisfitness.models;
+package sisfitness.builder;
 
+import sisfitness.builder.ProductoModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import sisfitness.models.CategoriaModel;
 
 /**
  *
@@ -20,7 +22,7 @@ public class ProductoRowMapper {
         List<ProductoModel> listaProductos = new ArrayList<>();
 
         while (resultSet.next()) {
-            ProductoModel producto = new ProductoModel.Builder()
+            ProductoModel producto = new ProductoModel.ProductoBuilder()
                     .id(resultSet.getInt("idproducto"))
                     .nombre(resultSet.getString("nombre"))
                     .descripcion(resultSet.getString("descripcion"))

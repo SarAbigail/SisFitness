@@ -9,13 +9,13 @@ package sisfitness.factories;
  * @author BRYAN
  */
 import sisfitness.models.CategoriaModel;
-import sisfitness.models.ProductoModel;
+import sisfitness.builder.ProductoModel;
 
 public class AccesorioFactory implements ProductoFactory {
 
     @Override
     public ProductoModel crearProducto() {
-        return new ProductoModel.Builder()
+        return new ProductoModel.ProductoBuilder()
                 .id(0)
                 .nombre("Guantes Pro Grip")
                 .descripcion("Accesorio para levantamiento de pesas")

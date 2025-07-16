@@ -6,7 +6,7 @@
 package sisfitness.dao;
 
 import java.util.List;
-import sisfitness.models.ProductoModel;
+import sisfitness.builder.ProductoModel;
 
 /**
  *
