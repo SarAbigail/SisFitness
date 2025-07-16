@@ -15,6 +15,8 @@ import static sisfitness.common.Parametros.OPCION_MODIFICAR;
 import static sisfitness.common.Parametros.OPCION_NUEVO;
 import sisfitness.models.CategoriaModel;
 import sisfitness.models.ProductoModel;
+import sisfitness.factories.ProductoFactory;
+import sisfitness.factories.ProductoFactoryCreator;
 
 /**
  *
@@ -356,6 +358,32 @@ public class frmProducto extends javax.swing.JDialog {
             }
         }
 
+        // Evento para aplicar el Factory Method al cambiar de categoría
+        cbxCategoria.addItemListener(e -> {
+            if (e.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+                CategoriaModel categoria = (CategoriaModel) cbxCategoria.getSelectedItem();
+                if (categoria != null && opcion.equals(OPCION_NUEVO)) {
+                    try {
+                        // Usamos el nombre de la categoría para obtener la fábrica
+                        ProductoFactory factory = ProductoFactoryCreator.getFactory(categoria.getNombre());
+                        ProductoModel producto = factory.crearProducto();
+                        // Llenamos los campos del formulario
+                        txtNombre.setText(producto.getNombre());
+                        txtDescripcion.setText(producto.getDescripcion());
+                        txtSerie.setText(producto.getSerie());
+                        txtPrecio.setText(String.valueOf(producto.getPrecio()));
+                        txtStock.setText(String.valueOf(producto.getStock()));
+                    } catch (IllegalArgumentException ex) {
+                        // Si no hay fábrica definida, limpiar campos o ignorar
+                        txtNombre.setText("");
+                        txtDescripcion.setText("");
+                        txtSerie.setText("");
+                        txtPrecio.setText("");
+                        txtStock.setText("");
+                    }
+                }
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
