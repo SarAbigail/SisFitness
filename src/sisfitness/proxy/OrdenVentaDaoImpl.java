@@ -5,6 +5,7 @@
  */
 package sisfitness.proxy;
 
+import sisfitness.proxy.OrdenVentaDao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import sisfitness.da.ConexSql;
 import sisfitness.models.OrdenVentaDetalleModel;
 import sisfitness.models.OrdenVentaModel;
 import sisfitness.models.OrdenVentaRowMapper;
+import sisfitness.builder.ProductoRowMapper;
 import sisfitness.dao.ProductoDaoImpl;
 
 /**
