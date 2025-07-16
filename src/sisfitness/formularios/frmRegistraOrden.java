@@ -13,7 +13,6 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import sisfitness.proxy.BOrdenVenta;
 import sisfitness.common.exception.AccesoDenegadoException;
-import static sisfitness.common.FuncionesGenericas.esDecimal;
 import sisfitness.common.SesionUsuario;
 import sisfitness.formularios.tablas.OrdenVentaDetalleTableModel;
 import sisfitness.models.ClienteModel;
